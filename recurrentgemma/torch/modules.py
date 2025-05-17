@@ -214,13 +214,9 @@ def _update_attention_cache(
     cache.num_tokens[:] = cache.num_tokens + 1
 
     return cache
-
-  elif n_fill == window_size:
-    # Processing prompt in chunks.
-    return _attention_cache_from_prompt(keys, values, segment_pos, window_size)
-
   else:
-    raise NotImplementedError()
+    # Processing a prompt or chunk of multiple tokens.
+    return _attention_cache_from_prompt(keys, values, segment_pos, window_size)
 
 
 def _roll_tensor(
